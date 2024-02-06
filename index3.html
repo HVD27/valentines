@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('bg.png') center/100% 100% no-repeat; 
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            background-color: #e1d7f0; 
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        #yesButton, #noButton {
+            padding: 15px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #yesButton {
+            flex-grow: 1;
+            background-color: #ff4081; 
+            color: #fff;
+        }
+
+        #noButton {
+            flex-grow: 0;
+            background-color: #e0e0e0; 
+            color: #757575;
+        }
+
+        #noButton.shrink {
+            transform: scale(0.8);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #yesButton.enlarge {
+            transform: scale(1.2);
+            transition: all 0.3s ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(-50vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            animation: confetti linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Will You Be My Valentine?</h1>
+        <div id="yesButton" onclick="yesClick()">Yes</div>
+        <div id="noButton" onclick="noClick()">No</div>
+    </div>
+
+    <script>
+        let noButtonClickCount = 0;
+
+        function yesClick() {
+            document.getElementById('yesButton');
+            document.getElementById('noButton');
+
+            createConfetti();
+            document.getElementById('yesButton').classList.add('enlarge');
+            setTimeout(() => {
+                document.getElementById('container').innerHTML = "<h1 style='color: #66163A'>Dear Simran,</h1><p style='color: #66163A'><p style='color: #66163A'>Thank you so much for being my valentine, but thank you even more for just being. You have seen me grow, try, succeed and fail, <br>and I have a feeling that over the course of our lives together, while I see you do all these, I will re-fall in love with you as many<br> times as there are stars in the sky. You can tell me everything, everything amazing you did to celebrate you, everything terrible, <br>and let me love you anyway. I feel whatever souls are made of, yours and mine are the same.<br><br>I love you so much, and I can't wait to spend this beautiful day and all the days that are beautiful because of you and only you. If <br>yours is a kiss of death, then color me crimson and dig me a grave, but if you want to test my love for you, stand on that grave and <br>watch me strengthen back to life.<br><br>I hope to have the most amazing life with you, filled with joy, celebrations, passion, and all the love there is.</p><br><br><p style='color: #66163A'>Yours across time,<br>Harshit</p>";
+            }, 1000); 
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement('img');
+                confettiPiece.src = 'vecteezy_red-heart-shape-icon-like-or-love-symbol-for-valentine-s_18842695.png'; // Replace with the URL to a heart-shaped image
+                confettiPiece.className = 'confetti';
+                document.body.appendChild(confettiPiece);
+
+                const delay = Math.random() * 5;
+                const duration = (Math.random() * 2) + 3;
+
+                confettiPiece.style.left = `${Math.random() * window.innerWidth}px`;
+                confettiPiece.style.animationDelay = `-${delay}s`;
+                confettiPiece.style.animationDuration = `${duration}s`;
+            }
+        }
+
+        function noClick() {
+            noButtonClickCount++;
+
+            if (noButtonClickCount >= 5) {
+                document.getElementById('noButton').style.display = 'none';
+            } else {
+                document.getElementById('noButton').classList.add('shrink');
+                document.getElementById('yesButton').classList.remove('enlarge');
+                adjustButtonSizes(noButtonClickCount);
+            }
+
+            document.getElementById('yesButton').disabled = true;
+        }
+
+        function adjustButtonSizes(count) {
+            const yesButtonSize = 1 + count * 0.1; 
+            const noButtonSize = 1 - count * 0.1; 
+
+            document.getElementById('yesButton').style.transform = `scale(${yesButtonSize})`;
+            document.getElementById('noButton').style.transform = `scale(${noButtonSize})`;
+        }
+    </script>
+</body>
+</html>
